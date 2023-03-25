@@ -21,21 +21,21 @@ def write_responses(result):
 def process_queries(queries):
     result = []
     # Keep list of all existing (i.e. not deleted yet) contacts.
-    contacts = []
+    contacts = {}
     for cur_query in queries:
         if cur_query.type == 'add':
-           if cur_query.numurs in kontakti:
-              kontakti[cur_query.numurs].vards = cur_query.vards
+           if cur_query.numurs in contacts:
+              contacts[cur_query.numurs].vards = cur_query.vards
            else:
-            kontakti[cur_query.numurs] = Kontakti(cur_query.vards, cur_query.numurs)
+            contacts[cur_query.numurs] = Kontakti(cur_query.vards, cur_query.numurs)
     
         elif cur_query.type == 'del':
-           if cur_query.numurs in kontakti:
-            del kontakti[cur_query.numurs]
+           if cur_query.numurs in contacts:
+            del contacts[cur_query.numurs]
         else:
             response = 'not found'
-            if cur_query.numurs in kontakti:
-                response = kontakti[cur_query.numurs].vards
+            if cur_query.numurs in contacts:
+                response =contacts[cur_query.numurs].vards
             result.append(response)
     return result
 
