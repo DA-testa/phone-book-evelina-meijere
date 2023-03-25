@@ -1,6 +1,6 @@
 # python3
 class Kontakti:
-    def nnn(self,vards,numurs):
+    def __init__(self,vards,numurs):
         self.vards=vards
         self.numurs=numurs
 
@@ -24,18 +24,18 @@ def process_queries(queries):
     contacts = {}
     for cur_query in queries:
         if cur_query.type == 'add':
-           if cur_query.numurs in contacts:
-              contacts[cur_query.numurs].vards = cur_query.vards
+           if cur_query.number in contacts:
+              contacts[cur_query.number].vards = cur_query.name
            else:
-            contacts[cur_query.numurs] = Kontakti(cur_query.vards, cur_query.numurs)
+            contacts[cur_query.number] = Kontakti(cur_query.name, cur_query.number)
     
         elif cur_query.type == 'del':
-           if cur_query.numurs in contacts:
-            del contacts[cur_query.numurs]
+           if cur_query.number in contacts:
+            del contacts[cur_query.number]
         else:
             response = 'not found'
-            if cur_query.numurs in contacts:
-                response =contacts[cur_query.numurs].vards
+            if cur_query.number in contacts:
+                response =contacts[cur_query.number].vards
             result.append(response)
     return result
 
